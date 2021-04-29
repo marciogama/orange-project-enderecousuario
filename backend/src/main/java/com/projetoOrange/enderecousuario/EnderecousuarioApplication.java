@@ -8,6 +8,6 @@ public class EnderecousuarioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EnderecousuarioApplication.class, args);
+		
 	}
-
 }

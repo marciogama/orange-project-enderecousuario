@@ -6,13 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tb_endereco")
-public class Endereco implements Serializable{
+public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,13 +27,18 @@ public class Endereco implements Serializable{
 	private String cidade;
 	private String estado;
 	private String cep;
-	
-	public Endereco () {
+
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+
+	public Endereco() {
 	}
 
+	
 	public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cidade,
-			String estado, String cep) {
-		
+			String estado, String cep, Usuario usuario) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -38,7 +47,9 @@ public class Endereco implements Serializable{
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.usuario = usuario;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -104,6 +115,14 @@ public class Endereco implements Serializable{
 		this.cep = cep;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,7 +147,4 @@ public class Endereco implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }
