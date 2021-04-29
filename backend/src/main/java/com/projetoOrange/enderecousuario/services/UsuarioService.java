@@ -1,6 +1,7 @@
 package com.projetoOrange.enderecousuario.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projetoOrange.enderecousuario.dto.UsuarioDTO;
 import com.projetoOrange.enderecousuario.entities.Usuario;
 import com.projetoOrange.enderecousuario.repositories.UsuarioRepository;
+import com.projetoOrange.enderecousuario.services.exceptions.EntityNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -24,6 +26,14 @@ public class UsuarioService {
 		List<UsuarioDTO> listDto = list.stream().map(x -> new UsuarioDTO(x)).collect(Collectors.toList());
 		
 		return listDto;
+	}
+
+	@Transactional(readOnly = true)
+	public UsuarioDTO findById(Long id) {
+		Optional <Usuario> obj = repository.findById(id);
+		Usuario entity = obj.orElseThrow(() -> new EntityNotFoundException("Código não encontrado !"));
+		
+		return new UsuarioDTO(entity);
 	}
 
 }
