@@ -2,8 +2,8 @@ package com.projetoOrange.enderecousuario.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -32,12 +30,13 @@ public class Usuario implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant dataNascimento;
 	
-	@JsonManagedReference
-	@OneToMany
+	//@JsonManagedReference
+	@ManyToMany
 	@JoinTable(name = "tb_usuario_endereco",
 		joinColumns = @JoinColumn(name = "usuario_id"),
 		inverseJoinColumns = @JoinColumn(name = "endereco_id"))
-	private List<Endereco> endereco = new ArrayList<>();
+	Set<Endereco> enderecos = new HashSet<>();
+	//private List<Endereco> endereco = new ArrayList<>();
 	
 	public Usuario() {
 	}
@@ -90,12 +89,8 @@ public class Usuario implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public List<Endereco> getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
 	@Override

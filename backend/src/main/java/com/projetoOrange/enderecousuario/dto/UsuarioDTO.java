@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -34,7 +35,7 @@ public class UsuarioDTO implements Serializable {
 	private String cpf;
 	private Instant dataNascimento;
 	
-	private List<Endereco> endereco = new ArrayList<>();
+	private List<EnderecoDTO> enderecos = new ArrayList<>();
 	
 	public UsuarioDTO() {
 	}
@@ -54,6 +55,11 @@ public class UsuarioDTO implements Serializable {
 		this.cpf = entity.getCpf();
 		this.dataNascimento = entity.getDataNascimento();
 	}	
+	
+	public UsuarioDTO(Usuario entity, Set<Endereco> enderecos) {
+		this(entity);
+		enderecos.forEach(end -> this.enderecos.add(new EnderecoDTO(end)));
+	}
 	
 	public Long getId() {
 		return id;
@@ -94,4 +100,14 @@ public class UsuarioDTO implements Serializable {
 	public void setDataNascimento(Instant dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	public List<EnderecoDTO> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<EnderecoDTO> enderecos) {
+		this.enderecos = enderecos;
+	}
+	
+	
 }
