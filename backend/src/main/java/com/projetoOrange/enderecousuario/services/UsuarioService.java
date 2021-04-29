@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projetoOrange.enderecousuario.dto.UsuarioDTO;
 import com.projetoOrange.enderecousuario.entities.Usuario;
 import com.projetoOrange.enderecousuario.repositories.UsuarioRepository;
-import com.projetoOrange.enderecousuario.services.exceptions.EntityNotFoundException;
+import com.projetoOrange.enderecousuario.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -31,7 +31,7 @@ public class UsuarioService {
 	@Transactional(readOnly = true)
 	public UsuarioDTO findById(Long id) {
 		Optional <Usuario> obj = repository.findById(id);
-		Usuario entity = obj.orElseThrow(() -> new EntityNotFoundException("Código não encontrado !"));
+		Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException("Código não encontrado !"));
 		
 		return new UsuarioDTO(entity);
 	}
