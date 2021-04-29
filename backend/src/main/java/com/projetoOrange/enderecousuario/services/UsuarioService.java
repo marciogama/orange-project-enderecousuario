@@ -12,8 +12,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.projetoOrange.enderecousuario.dto.EnderecoDTO;
 import com.projetoOrange.enderecousuario.dto.UsuarioDTO;
+import com.projetoOrange.enderecousuario.entities.Endereco;
 import com.projetoOrange.enderecousuario.entities.Usuario;
+import com.projetoOrange.enderecousuario.repositories.EnderecoRepository;
 import com.projetoOrange.enderecousuario.repositories.UsuarioRepository;
 import com.projetoOrange.enderecousuario.services.exceptions.DatabaseException;
 import com.projetoOrange.enderecousuario.services.exceptions.ResourceNotFoundException;
@@ -23,6 +26,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@Transactional(readOnly = true)
 	public List<UsuarioDTO> findAll() {
@@ -44,6 +50,7 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioDTO insert(UsuarioDTO dto) {
 		Usuario entity = new Usuario();
+		copyDtoToEntity(dto, entity);
 		//entity.setLogradouro(dto.getLogradouro());
 		//entity.setNumero(dto.getNumero());
 		//entity.setComplemento(dto.getComplemento());
@@ -59,6 +66,7 @@ public class UsuarioService {
 	public UsuarioDTO update(Long id, UsuarioDTO dto) {
 		try {
 			Usuario entity = repository.getOne(id);
+			copyDtoToEntity(dto, entity);
 			//entity.setLogradouro(dto.getLogradouro());
 			//entity.setNumero(dto.getNumero());
 			//entity.setComplemento(dto.getComplemento());
@@ -84,5 +92,21 @@ public class UsuarioService {
 		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Violação de integridade do BD !");
 		}
+	}
+	
+	private void copyDtoToEntity(UsuarioDTO dto, Usuario entity) {
+		
+		entity.setNome(dto.getNome());
+		entity.setEmail(dto.getEmail());
+		entity.setCpf(dto.getCpf());
+		entity.setDataNascimento(dto.getDataNascimento());
+		
+		entity.getEnderecos().clear();
+		
+		for (EnderecoDTO endDTO : dto.getEnderecos() ) {
+			Endereco endereco = enderecoRepository.getOne(endDTO.getId());
+			entity.getEnderecos().add(endereco);
+		}
+		
 	}
 }

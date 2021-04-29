@@ -44,13 +44,7 @@ public class EnderecoService {
 	@Transactional
 	public EnderecoDTO insert(EnderecoDTO dto) {
 		Endereco entity = new Endereco();
-		entity.setLogradouro(dto.getLogradouro());
-		entity.setNumero(dto.getNumero());
-		entity.setComplemento(dto.getComplemento());
-		entity.setBairro(dto.getBairro());
-		entity.setCidade(dto.getCidade());
-		entity.setEstado(dto.getEstado());
-		entity.setCep(dto.getCep());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new EnderecoDTO(entity);
 	}
@@ -59,13 +53,7 @@ public class EnderecoService {
 	public EnderecoDTO update(Long id, EnderecoDTO dto) {
 		try {
 			Endereco entity = repository.getOne(id);
-			entity.setLogradouro(dto.getLogradouro());
-			entity.setNumero(dto.getNumero());
-			entity.setComplemento(dto.getComplemento());
-			entity.setBairro(dto.getBairro());
-			entity.setCidade(dto.getCidade());
-			entity.setEstado(dto.getEstado());
-			entity.setCep(dto.getCep());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new EnderecoDTO(entity);
 		}	
@@ -84,5 +72,15 @@ public class EnderecoService {
 		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Violação de integridade do BD !");
 		}
+	}
+	
+	private void copyDtoToEntity(EnderecoDTO dto, Endereco entity) {
+		entity.setLogradouro(dto.getLogradouro());
+		entity.setNumero(dto.getNumero());
+		entity.setComplemento(dto.getComplemento());
+		entity.setBairro(dto.getBairro());
+		entity.setCidade(dto.getCidade());
+		entity.setEstado(dto.getEstado());
+		entity.setCep(dto.getCep());
 	}
 }
