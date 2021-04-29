@@ -7,12 +7,15 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projetoOrange.enderecousuario.dto.EnderecoDTO;
 import com.projetoOrange.enderecousuario.entities.Endereco;
 import com.projetoOrange.enderecousuario.repositories.EnderecoRepository;
+import com.projetoOrange.enderecousuario.services.exceptions.DatabaseException;
 import com.projetoOrange.enderecousuario.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -68,6 +71,18 @@ public class EnderecoService {
 		}	
 		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("ID de endereço não encontrato "+id);
+		}
+	}
+
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("ID de endereço não encontrato "+id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Violação de integridade do BD !");
 		}
 	}
 }
