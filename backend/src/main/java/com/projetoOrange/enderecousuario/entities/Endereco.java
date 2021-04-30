@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,18 +25,16 @@ public class Endereco implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
-
-	//@JsonBackReference
-	@ManyToOne
+	
+	@ManyToMany
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 
 	public Endereco() {
 	}
-
 	
 	public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cidade,
-			String estado, String cep, Usuario usuario) {
+			String estado, String cep) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -45,9 +43,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
-		this.usuario = usuario;
 	}
-
 
 	public Long getId() {
 		return id;

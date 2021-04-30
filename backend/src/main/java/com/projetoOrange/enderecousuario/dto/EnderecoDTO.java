@@ -105,8 +105,4 @@ public class EnderecoDTO implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	
-	
-
 }

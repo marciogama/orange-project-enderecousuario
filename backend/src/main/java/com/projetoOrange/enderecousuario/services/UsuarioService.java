@@ -51,13 +51,6 @@ public class UsuarioService {
 	public UsuarioDTO insert(UsuarioDTO dto) {
 		Usuario entity = new Usuario();
 		copyDtoToEntity(dto, entity);
-		//entity.setLogradouro(dto.getLogradouro());
-		//entity.setNumero(dto.getNumero());
-		//entity.setComplemento(dto.getComplemento());
-		//entity.setBairro(dto.getBairro());
-		//entity.setCidade(dto.getCidade());
-		//entity.setEstado(dto.getEstado());
-		//entity.setCep(dto.getCep());
 		entity = repository.save(entity);
 		return new UsuarioDTO(entity);
 	}
@@ -67,13 +60,6 @@ public class UsuarioService {
 		try {
 			Usuario entity = repository.getOne(id);
 			copyDtoToEntity(dto, entity);
-			//entity.setLogradouro(dto.getLogradouro());
-			//entity.setNumero(dto.getNumero());
-			//entity.setComplemento(dto.getComplemento());
-			//entity.setBairro(dto.getBairro());
-			//entity.setCidade(dto.getCidade());
-			//entity.setEstado(dto.getEstado());
-			//entity.setCep(dto.getCep());
 			entity = repository.save(entity);
 			return new UsuarioDTO(entity);
 		}	

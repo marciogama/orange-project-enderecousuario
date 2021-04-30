@@ -14,6 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -23,20 +28,28 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
+	@Email(message="Email inválido")
+	@Column(unique=true)
 	private String email;
+	
+	@CPF
+	@Column(unique=true)
 	private String cpf;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant dataNascimento;
 	
-	//@JsonManagedReference
 	@ManyToMany
 	@JoinTable(name = "tb_usuario_endereco",
 		joinColumns = @JoinColumn(name = "usuario_id"),
 		inverseJoinColumns = @JoinColumn(name = "endereco_id"))
 	Set<Endereco> enderecos = new HashSet<>();
-	//private List<Endereco> endereco = new ArrayList<>();
 	
 	public Usuario() {
 	}
