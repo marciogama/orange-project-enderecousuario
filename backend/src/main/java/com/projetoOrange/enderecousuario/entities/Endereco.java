@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_endereco")
@@ -26,7 +28,8 @@ public class Endereco implements Serializable {
 	private String estado;
 	private String cep;
 	
-	@ManyToMany
+	@JsonIgnore
+	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 

@@ -88,9 +88,9 @@ public class UsuarioDTO implements Serializable {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<EnderecoDTO> enderecos) {
-		this.enderecos = enderecos;
-	}
+//	public void setEnderecos(List<EnderecoDTO> enderecos) {
+//		this.enderecos = enderecos;
+//	}
 	
 	
 }

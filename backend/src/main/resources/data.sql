@@ -5,16 +5,9 @@ INSERT INTO tb_usuario (nome, email, cpf, data_nascimento) VALUES ('Theo Bernard
 INSERT INTO tb_usuario (nome, email, cpf, data_nascimento) VALUES ('Leandro Felipe Souza','leandrofelipesouza@hotmail.com','69381040427','2002-09-20T15:44:34Z');
 INSERT INTO tb_usuario (nome, email, cpf, data_nascimento) VALUES ('Vitor André Roberto Caldeira','vitorcaldeira@gmail.com','71554853303','1955-11-24T12:32:06Z');
 
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua do Catete', '340', 'Sala 301', 'Catete', 'Rio de Janeiro','RJ','20210045');
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua Barata Ribeiro', '850', 'Apt. 304', 'Copacabana', 'Rio de Janeiro','RJ','21210154');
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua do Ouvidor', '183', 'Grupo 209', 'Centro', 'Rio de Janeiro','RJ','20040030');
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua São José', '20', 'Sala 1102', 'Centro', 'Rio de Janeiro','RJ','20040040');
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua do Mercado', '18', 'Sala 101', 'Centro', 'Rio de Janeiro','RJ','20040030');
-INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep) VALUES ('Rua Portela', '5', 'Casa 01', 'Praia Seca', 'Araruama','RJ','22004030');
-
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (1,2);
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (2,3);
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (3,4);
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (4,5);
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (5,6);
-INSERT INTO tb_usuario_endereco(usuario_id, endereco_id) VALUES (6,1);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua do Catete', '340', 'Sala 301', 'Catete', 'Rio de Janeiro','RJ','20210045',6);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua Barata Ribeiro', '850', 'Apt. 304', 'Copacabana', 'Rio de Janeiro','RJ','21210154',5);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua do Ouvidor', '183', 'Grupo 209', 'Centro', 'Rio de Janeiro','RJ','20040030',4);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua São José', '20', 'Sala 1102', 'Centro', 'Rio de Janeiro','RJ','20040040',3);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua do Mercado', '18', 'Sala 101', 'Centro', 'Rio de Janeiro','RJ','20040030',2);
+INSERT INTO tb_Endereco (logradouro, numero,complemento,bairro,cidade,estado,cep,usuario_id) VALUES ('Rua Portela', '5', 'Casa 01', 'Praia Seca', 'Araruama','RJ','22004030',1);
