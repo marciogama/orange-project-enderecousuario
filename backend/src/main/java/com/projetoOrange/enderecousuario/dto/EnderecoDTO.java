@@ -2,17 +2,27 @@ package com.projetoOrange.enderecousuario.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.projetoOrange.enderecousuario.entities.Endereco;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
 	private String cidade;
+	@NotEmpty(message="Reenchimento obrigatório")
 	private String estado;
 	private String cep;
 

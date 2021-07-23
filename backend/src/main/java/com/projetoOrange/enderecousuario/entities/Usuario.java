@@ -5,18 +5,12 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -27,20 +21,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message="Reenchimento obrigatório")
-	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
-	
-	@NotEmpty(message="Reenchimento obrigatório")
-	@Email(message="Email inválido")
-	@Column(unique=true)
 	private String email;
-	
-	@CPF
-	@Column(unique=true)
 	private String cpf;
-	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant dataNascimento;
 	
 	@OneToMany(mappedBy="usuario")

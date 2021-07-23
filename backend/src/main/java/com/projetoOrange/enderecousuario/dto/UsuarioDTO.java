@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.projetoOrange.enderecousuario.entities.Endereco;
 import com.projetoOrange.enderecousuario.entities.Usuario;
 
@@ -13,9 +20,21 @@ public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+	
+	@NotEmpty(message="Reenchimento obrigatório")
+	@Email(message="Email inválido")
+	@Column(unique=true)
 	private String email;
+	
+	@CPF
+	@Column(unique=true)
 	private String cpf;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant dataNascimento;
 	
 	private List<EnderecoDTO> enderecos = new ArrayList<>();
